@@ -1,12 +1,12 @@
 import { status } from 'elysia'
-import { eq } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 import { db } from '../database'
 import { post } from '../database/schema'
 import { PostModel } from './model'
 
 export abstract class PostService {
   static async getAllPosts() {
-    return db.select().from(post)
+    return db.select().from(post).orderBy(desc(post.createdAt))
   }
 
   static async getPostById(id: number) {
@@ -22,13 +22,14 @@ export abstract class PostService {
   }
 
   static async createPost(body: PostModel.upsertPost) {
-    // Mock value for author for now
-    const author = 'author'
-    return db
-      .insert(post)
-      .values({ ...body, author })
-      .returning()
-      .then((result) => result[0])
+    return (
+      db
+        .insert(post)
+        // Mock value for author for now
+        .values(body)
+        .returning()
+        .then((result) => result[0])
+    )
   }
 
   static async updatePost(id: number, body: PostModel.upsertPost) {

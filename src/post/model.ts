@@ -5,7 +5,7 @@ import { post } from '../database/schema'
 const _upsertPost = createInsertSchema(post)
 
 export namespace PostModel {
-  export const upsertPost = t.Pick(_upsertPost, ['content'])
+  export const upsertPost = t.Pick(_upsertPost, ['author', 'content'])
   export type upsertPost = typeof upsertPost.static
 
   export const postResponse = createSelectSchema(post)

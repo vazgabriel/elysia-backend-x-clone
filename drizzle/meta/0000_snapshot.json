@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "f5c8b0bf-8bfc-4076-8c68-3fb478ba591d",
+  "id": "6a38d8bc-960e-4c15-85f9-3c64b1e23775",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "posts": {
@@ -13,6 +13,13 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": true
+        },
+        "author": {
+          "name": "author",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         },
         "content": {
           "name": "content",
@@ -27,7 +34,7 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
-          "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
+          "default": "(unixepoch())"
         },
         "updated_at": {
           "name": "updated_at",
@@ -35,7 +42,7 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
-          "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
+          "default": "(unixepoch())"
         }
       },
       "indexes": {},
